@@ -29,6 +29,8 @@ namespace Coterie.Api
             });
 
             services.AddScoped<ITestService, TestService>();
+            services.AddScoped<IRatingEngineService, RatingEngineService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
