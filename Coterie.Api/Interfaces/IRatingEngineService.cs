@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Coterie.Api.Models.Requests;
 using Coterie.Api.Models.Responses;
 
 namespace Coterie.Api.Interfaces
 {
     public interface IRatingEngineService
     {
-        string GetRating(string rating);
+        (RatingResponse, string) GetRating(RatingRequest request);
     }
 }

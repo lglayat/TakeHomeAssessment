@@ -3,7 +3,7 @@
     public class RatingRequest
     {
         public string Business { get; set; }
-        public int Revenue { get; set; }
+        public decimal Revenue { get; set; }
         public string[] States { get; set; }
     }
 }

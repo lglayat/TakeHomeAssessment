@@ -5,15 +5,15 @@ namespace Coterie.Api.Models.Responses
     public class RatingResponse
     {
         public string Business { get; set; }
-        public int Revenue { get; set; }
+        public decimal Revenue { get; set; }
         public PremiumWrapper[] Premiums { get; set; }
-        public bool IsSuccessful { get; set; }
-        public Guid TransactionId { get; set; }
+        public bool IsSuccessful { get; } = true;
+        public string TransactionId { get; } = Guid.NewGuid().ToString();
     }
 
     public class PremiumWrapper
     {
-        public int Premium { get; set; }
+        public decimal Premium { get; set; }
         public string State { get; set; }
     }
 }

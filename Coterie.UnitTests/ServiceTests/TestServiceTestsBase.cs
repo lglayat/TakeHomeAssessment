@@ -12,6 +12,7 @@ namespace Coterie.UnitTests
         // protected Mock<ITestService> MockTestService;
 
         protected TestService TestService;
+        protected RatingEngineService RatingEngineService;
 
         [OneTimeSetUp]
         public void BaseOneTimeSetup()
@@ -19,6 +20,7 @@ namespace Coterie.UnitTests
             //MockTestService = new Mock<ITestService>();
 
             TestService = new TestService();
+            RatingEngineService = new RatingEngineService();
         }
 
         [TearDown]

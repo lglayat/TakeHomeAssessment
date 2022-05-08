@@ -6,7 +6,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Xml.XPath;
 
 namespace Coterie.Api
 {
@@ -26,6 +31,9 @@ namespace Coterie.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Coterie.Api", Version = "v1"});
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddScoped<ITestService, TestService>();
@@ -52,5 +60,6 @@ namespace Coterie.Api
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+
     }
 }

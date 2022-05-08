@@ -18,15 +18,22 @@ namespace Coterie.Api.Controllers
         }
 
         /// <summary>
-        /// Takes in rating parameters and the rating engine outputs a quote based on valid data
+        /// Takes in business parameters and the rating engine outputs a premiums based on valid data
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
+        [ProducesResponseType(typeof(string), 400)]
         [HttpPost]
-        public ActionResult<ItemResponse<RatingResponse>> SubmitData(RatingRequest request)
+        public ActionResult<RatingResponse> GetRating(RatingRequest request)
         {
-            var result = _ratingEngineService.GetRating(string.Empty);
-            return new ItemResponse<RatingResponse>();
+            var (result, message) = _ratingEngineService.GetRating(request);
+
+            if (result == null)
+            {
+                return BadRequest(message);
+            }
+
+            return result;
         }
     }
 }
