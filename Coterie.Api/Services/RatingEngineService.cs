@@ -20,6 +20,9 @@ namespace Coterie.Api.Services
                 ["OH"] = 1,
                 ["FL"] = 1.2m,
                 ["TX"] = .943m,
+                ["OHIO"] = 1,
+                ["FLORIDA"] = 1.2m,
+                ["TEXAS"] = .943m,
             };
 
             _businessInfo = new Dictionary<string, decimal>
@@ -30,6 +33,7 @@ namespace Coterie.Api.Services
             };
 
         }
+
         public (RatingResponse, string) GetRating(RatingRequest request)
         {
             // Step 1. Data Validations
@@ -74,19 +78,19 @@ namespace Coterie.Api.Services
 
         #region Private
         private bool IsValidStateList(string[] states)
+        {
+            foreach(var state in states)
             {
-                foreach(var state in states)
+                if (!_stateInfo.ContainsKey(state.ToUpper()))
                 {
-                    if (!_stateInfo.ContainsKey(state.ToUpper()))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-
-                return true;
             }
-            #endregion
+
+            return true;
         }
+        #endregion
+    }
 }
 
 
