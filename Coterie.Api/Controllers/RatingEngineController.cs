@@ -23,6 +23,7 @@ namespace Coterie.Api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(RatingResponse), 200)]
         [HttpPost]
         public ActionResult<RatingResponse> GetRating(RatingRequest request)
         {
