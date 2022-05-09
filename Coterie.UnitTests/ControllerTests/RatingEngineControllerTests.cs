@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coterie.UnitTests.ControllerTests
+namespace Coterie.UnitTests
 {
     public class RatingEngineControllerTests : ControllerTestsBase
     {

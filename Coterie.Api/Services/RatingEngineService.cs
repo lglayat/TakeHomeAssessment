@@ -2,27 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using Coterie.Api.Interfaces;
+using Coterie.Api.Models.Data;
 using Coterie.Api.Models.Requests;
 using Coterie.Api.Models.Responses;
+
 
 namespace Coterie.Api.Services
 {
     public class RatingEngineService : IRatingEngineService
     {
-        private readonly Dictionary<string, decimal> _stateInfo;
+        private readonly Dictionary<string, State> _stateInfo;
         private readonly Dictionary<string, decimal> _businessInfo;
         private readonly int HAZARD_FACTOR = 4;
 
         public RatingEngineService()
         {
-            _stateInfo = new Dictionary<string, decimal>
+            State ohio = new State
             {
-                ["OH"] = 1,
-                ["FL"] = 1.2m,
-                ["TX"] = .943m,
-                ["OHIO"] = 1,
-                ["FLORIDA"] = 1.2m,
-                ["TEXAS"] = .943m,
+                Name = "Ohio",
+                Abbreviation = "OH",
+                StateFactor = 1,
+            };
+
+            State florida = new State
+            {
+                Name = "Florida",
+                Abbreviation = "FL",
+                StateFactor = 1.2m,
+            };
+
+            State texas = new State
+            {
+                Name = "Texas",
+                Abbreviation = "TX",
+                StateFactor = .943m,
+            };
+
+
+            _stateInfo = new Dictionary<string, State>
+            {
+                ["OH"] = ohio,
+                ["OHIO"] = ohio,
+                ["FL"] = florida,
+                ["FLORIDA"] = florida,
+                ["TX"] = texas,
+                ["TEXAS"] = texas,
             };
 
             _businessInfo = new Dictionary<string, decimal>
@@ -62,8 +86,8 @@ namespace Coterie.Api.Services
             {
                 premiums.Add(new PremiumWrapper
                 {
-                    State = state,
-                    Premium = GeneratePremium(_stateInfo[state.ToUpper()], busniessFactor, basePremium, HAZARD_FACTOR),
+                    State = _stateInfo[state.ToUpper()].Abbreviation,
+                    Premium = GeneratePremium(_stateInfo[state.ToUpper()].StateFactor, busniessFactor, basePremium, HAZARD_FACTOR),
                 });
             }
             response.Premiums = premiums.ToArray();
